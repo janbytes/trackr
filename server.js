@@ -250,17 +250,21 @@ io.on('connection', (socket) => {
 
     // ---- LAP TRACKER ----
 
-    socket.on('lapCompleted', (/** @type {{car: number, lapTime: number}} */ payload) => {
-        const { car, lapTime } = payload;
-        if (!carStats[car]) carStats[car] = { laps: 0, bestLap: null, lastLapTime: null };
-        carStats[car].laps += 1;
+    socket.on('lapCompleted', ({ car, lapTime }) => {
+    if (!carStats[car]) carStats[car] = { laps: 0, bestLap: null, lastLapTime: null };
+    carStats[car].laps += 1;
+
+    // lapTime is null on first crossing — we just count the lap, no time recorded yet
+    if (lapTime !== null) {
         carStats[car].lastLapTime = lapTime;
         if (carStats[car].bestLap === null || lapTime < carStats[car].bestLap) {
             carStats[car].bestLap = lapTime;
         }
-        io.emit('carStatsUpdated', carStats);
-        saveData();
-    });
+    }
+
+    io.emit('carStatsUpdated', carStats);
+    saveData();
+});
 
     // ---- RACE CONTROL ----
 
