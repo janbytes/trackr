@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leader Board</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f0f0f0; }
+        h1 { text-align: center; margin-bottom: 16px; }
+
+        #timer { font-size: 36px; font-weight: bold; text-align: center; margin-bottom: 8px; }
+        #flag  { font-size: 20px; text-align: center; margin-bottom: 16px; font-weight: bold; }
+
+        table { width: 100%; max-width: 700px; margin: 0 auto; border-collapse: collapse; background: white; }
+        th, td { padding: 10px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: #4CAF50; color: white; }
+        tr:hover { background: #f5f5f5; }
+
+        .empty { text-align: center; color: #999; padding: 30px; }
+
+        button { display: block; margin: 20px auto; padding: 10px 20px; font-size: 14px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Leader Board</h1>
+    <div id="timer">--:--</div>
+    <div id="flag">Flag: Safe</div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Pos</th>
+                <th>Driver</th>
+                <th>Car</th>
+                <th>Best Lap</th>
+                <th>Laps</th>
+            </tr>
+        </thead>
+        <tbody id="leaderboardBody">
+            <tr><td colspan="5" class="empty">No active race</td></tr>
+        </tbody>
+    </table>
+
+    <button onclick="toggleFullscreen()">Toggle Fullscreen</button>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/leader-board.js"></script>
+</body>
+</html>

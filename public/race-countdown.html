@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Race Countdown</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #fff3e0; text-align: center; }
+        h1 { margin-bottom: 16px; }
+        #countdown { font-size: 96px; font-weight: bold; margin: 20px 0; }
+        #modeLabel  { font-size: 24px; font-weight: bold; margin-bottom: 20px; }
+        .progress-wrap { width: 80%; max-width: 500px; height: 12px; background: #ddd; border-radius: 6px; margin: 0 auto 20px; }
+        #progressBar   { height: 100%; background: #4CAF50; border-radius: 6px; transition: width 1s linear; width: 100%; }
+        button { padding: 10px 20px; font-size: 14px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Race Countdown</h1>
+    <div id="countdown">--:--</div>
+    <div class="progress-wrap"><div id="progressBar"></div></div>
+    <div id="modeLabel">Mode: -</div>
+    <button onclick="toggleFullscreen()">Toggle Fullscreen</button>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/race-countdown.js"></script>
+</body>
+</html>
