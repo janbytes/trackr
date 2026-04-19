@@ -105,15 +105,23 @@ function renderButtons() {
     });
 }
 
-function recordLap(car) {
+ffunction recordLap(car) {
     if (sessionEnded || !socket) return;
 
     const now = Date.now();
     // Need at least 1 second between taps for same car
     if (lastTapTime[car] && now - lastTapTime[car] < 1000) return;
 
-    // Calculate lap time from last tap (0 if first lap)
-    const lapTime = lastTapTime[car] ? (now - lastTapTime[car]) / 1000 : 0;
+    if (!lastTapTime[car]) {
+        // First tap = car crosses lap line for the first time, start the clock
+        // We count the lap but can't measure time yet
+        lastTapTime[car] = now;
+        socket.emit('lapCompleted', { car, lapTime: null });
+        return;
+    }
+
+    // Second tap onwards = real lap time can be calculated
+    const lapTime = (now - lastTapTime[car]) / 1000;
     lastTapTime[car] = now;
 
     socket.emit('lapCompleted', { car, lapTime });
